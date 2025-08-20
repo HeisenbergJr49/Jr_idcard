@@ -1,0 +1,35 @@
+# Jr_IDCard - .gitignore
+
+# Development files
+*.log
+*.tmp
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Backup files
+*.bak
+*~
+
+# Config backups
+config/config.lua.bak
+
+# Node modules (if using build tools)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Build artifacts
+dist/
+build/
+
+# Local environment
+.env
+.env.local
+
+# Temporary files
+tmp/
+temp/

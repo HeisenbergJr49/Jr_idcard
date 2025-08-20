@@ -14,10 +14,10 @@ shared_scripts {
 server_scripts {
     '@oxmysql/lib/MySQL.lua',
     'server/database.lua',
-    'server/main.lua',
-    'server/cards.lua',
     'server/audit.lua',
-    'server/admin.lua'
+    'server/cards.lua',
+    'server/admin.lua',
+    'server/main.lua'
 }
 
 client_scripts {
@@ -25,6 +25,20 @@ client_scripts {
     'client/nui.lua',
     'client/interactions.lua',
     'client/inventory.lua'
+}
+
+server_exports {
+    'Database',
+    'Audit',
+    'Cards',
+    'Admin'
+}
+
+client_exports {
+    'GetPlayerCards',
+    'RefreshCards',
+    'OpenCardUI',
+    'CloseCardUI'
 }
 
 ui_page 'nui/index.html'

@@ -3,8 +3,10 @@
 
 local ESX = nil
 local QBCore = nil
-local Database = exports[GetCurrentResourceName()]:Database()
-local Audit = exports[GetCurrentResourceName()]:Audit()
+
+-- Initialize modules
+local Database = nil
+local Audit = nil
 
 -- Framework Detection and Initialization
 local function InitializeFramework()
@@ -144,7 +146,18 @@ end
 -- Initialize system
 CreateThread(function()
     InitializeFramework()
-    Database.Init()
+    
+    -- Load modules after framework initialization
+    Database = LoadResourceFile(GetCurrentResourceName(), 'server/database.lua')
+    if Database then
+        Database = load(Database)()
+        Database.Init()
+    end
+    
+    Audit = LoadResourceFile(GetCurrentResourceName(), 'server/audit.lua')
+    if Audit then
+        Audit = load(Audit)()
+    end
     
     if Config.Debug then
         print('^2[Jr_IDCard]^7 System initialized successfully')
@@ -414,17 +427,38 @@ end)
 
 -- Export functions for other resources
 exports('GetPlayerCards', function(identifier)
-    return Database.GetCardsByOwner(identifier)
+    if Database then
+        return Database.GetCardsByOwner(identifier)
+    end
+    return {}
 end)
 
 exports('GetCardById', function(cardId)
-    return Database.GetCardById(cardId)
+    if Database then
+        return Database.GetCardById(cardId)
+    end
+    return nil
 end)
 
 exports('HasValidCard', function(identifier, cardType)
-    return Database.PlayerHasCardType(identifier, cardType)
+    if Database then
+        return Database.PlayerHasCardType(identifier, cardType)
+    end
+    return false
 end)
 
 exports('VerifyCard', function(card)
-    return Database.VerifyCardSignature(card)
+    if Database then
+        return Database.VerifyCardSignature(card)
+    end
+    return false
+end)
+
+-- Module exports for internal use
+exports('Database', function()
+    return Database
+end)
+
+exports('Audit', function()
+    return Audit
 end)
