@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ID Card Management</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Main Container -->
+    <div id="app" class="app-container">
+        <!-- Card Management Interface -->
+        <div id="mainUI" class="main-ui">
+            <div class="ui-header">
+                <h1><i class="fas fa-id-card"></i> <span data-locale="my_cards">My Cards</span></h1>
+                <button id="closeBtn" class="btn-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            
+            <!-- Filter and Search -->
+            <div class="controls">
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all" data-locale="filter_all">All Cards</button>
+                    <button class="filter-tab" data-filter="valid" data-locale="filter_valid">Valid Cards</button>
+                    <button class="filter-tab" data-filter="expired" data-locale="filter_expired">Expired Cards</button>
+                    <button class="filter-tab" data-filter="suspended" data-locale="filter_suspended">Suspended Cards</button>
+                </div>
+                <div class="search-container">
+                    <input type="text" id="searchInput" data-locale-placeholder="search_placeholder" placeholder="Search cards...">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+            
+            <!-- Cards Grid -->
+            <div id="cardsGrid" class="cards-grid">
+                <!-- Cards will be populated here -->
+            </div>
+            
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state">
+                <i class="fas fa-id-card-clip"></i>
+                <h3 data-locale="no_cards">You don't have any ID cards</h3>
+                <p>Contact authorized personnel to get your identification cards.</p>
+            </div>
+        </div>
+        
+        <!-- Card Detail Modal -->
+        <div id="cardDetailModal" class="modal">
+            <div class="modal-content card-detail">
+                <div class="modal-header">
+                    <h2 data-locale="card_details">Card Details</h2>
+                    <button class="btn-close" data-modal-close="cardDetailModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-display">
+                        <div class="card-sides">
+                            <div class="card-side front active" id="cardFront">
+                                <!-- Card front content -->
+                            </div>
+                            <div class="card-side back" id="cardBack">
+                                <!-- Card back content -->
+                            </div>
+                        </div>
+                        <div class="side-toggle">
+                            <button class="side-btn active" data-side="front" data-locale="front_side">Front</button>
+                            <button class="side-btn" data-side="back" data-locale="back_side">Back</button>
+                        </div>
+                    </div>
+                    <div class="card-info">
+                        <div id="cardDetailInfo" class="detail-info">
+                            <!-- Detailed card information -->
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="showCardBtn" class="btn btn-primary">
+                        <i class="fas fa-share"></i> <span data-locale="action_show">Show to Player</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Nearby Players Modal -->
+        <div id="nearbyPlayersModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 data-locale="nearby_players">Nearby Players</h2>
+                    <button class="btn-close" data-modal-close="nearbyPlayersModal">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="nearbyPlayersList" class="players-list">
+                        <!-- Players will be populated here -->
+                    </div>
+                    <div id="noPlayersMessage" class="empty-message">
+                        <i class="fas fa-users-slash"></i>
+                        <p data-locale="no_nearby_players">No players nearby</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Received Card Modal -->
+        <div id="receivedCardModal" class="modal">
+            <div class="modal-content received-card">
+                <div class="modal-header">
+                    <h2><span data-locale="card_received">Card Received</span></h2>
+                </div>
+                <div class="modal-body">
+                    <div class="sender-info">
+                        <p>From: <strong id="senderName"></strong></p>
+                    </div>
+                    <div id="receivedCardDisplay" class="received-card-display">
+                        <!-- Received card content -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="acceptCardBtn" class="btn btn-success">
+                        <i class="fas fa-check"></i> <span data-locale="confirm">Accept</span>
+                    </button>
+                    <button id="declineCardBtn" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> <span data-locale="cancel">Decline</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Loading Spinner -->
+        <div id="loadingSpinner" class="loading-spinner">
+            <div class="spinner"></div>
+            <p data-locale="loading">Loading...</p>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
